@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>cofferun</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body class="container">
+    <header>
+      <h1>CoffeeRun</h1>
+    </header>
+
+    <section>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form data-coffee-order="form">
+            <div class="form-group">
+              <label for="coffee_order">Coffee Order</label>
+              <input class="form-control" name="coffee" id="coffee_order" autofocus>
+            </div>
+            <div class="form-group">
+              <label for="email_input">Email</label>
+              <input class="form-control" type="email" name="email_address"
+                     value="" id="email_input" placeholder="dr@who.com">
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="size" value="short">
+                Short
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="size" value="tall" checked>
+                Tall
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="size" value="grandle">
+                Grandle
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="flavor-shot">Flavor Shot</label>
+              <select id="flavor-shot" class="form-control" name="flavor">
+                <option value="">None</option>
+                <option value="caramel">Caramel</option>
+                <option value="almond">Almond</option>
+                <option value="mocha">Mocha</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="strength">Caffeine Rating</label>
+              <input id="strength" type="range" name="strength" value="30" data-strength="input">
+              <div>
+                strength level:
+                <span data-strength="level">30</span>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="reset" class="btn btn-default">Reset</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h4>Pending Orders:</h4>
+          <div data-coffee-order="checklist">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" charset="utf-8"></script>
+    <script src="scripts/checklist.js" charset="utf-8"></script>
+    <script src="scripts/formhandler.js" charset="utf-8"></script>
+    <script src="scripts/datastore.js" charset="utf-8"></script>
+    <script src="scripts/truck.js" charset="utf-8"></script>
+    <script src="scripts/main.js" charset="utf-8"></script>
+    <script src="scripts/effects.js"></script>
+  </body>
+</html>
