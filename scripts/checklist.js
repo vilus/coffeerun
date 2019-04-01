@@ -2,6 +2,7 @@
   'use strict';
   var App = window.App || {};
   var $ = window.jQuery;
+  var remove_delay = 2000;
 
   function CheckList (selector) {
     if (!selector) {
@@ -12,14 +13,31 @@
     if (this.$element.length === 0) {
       throw new Error('Could not find element with selector: ' + selector);
     }
+
+    this.unchecker_map = {};
   };
 
   CheckList.prototype.addClickHandler = function (fn) {
     this.$element.on('click', 'input', function (event) {
       var email = event.target.value;
-      this.removeRow(email);
-      fn(email);
-    }.bind(this));
+
+      if (event.target.checked) {
+        this.rowColor(email, 'Gainsboro') // todo
+        var task_id = setTimeout(function () {
+          this.removeRow(email);
+          fn(email);
+        }.bind(this), remove_delay);
+
+        this.unchecker_map[email] = function () {
+          clearTimeout(task_id);
+          this.rowColor(email, 'SeaShell'); // todo
+        }.bind(this);
+      }
+      else {
+        this.unchecker_map[email]()
+      }
+
+    }.bind(this))
   };
 
   CheckList.prototype.addRow = function (coffee_order) {
@@ -33,6 +51,12 @@
       .find('[value="' + email_address + '"]')
       .closest('[data-coffee-order="checkbox"]')
       .remove();
+  };
+
+  CheckList.prototype.rowColor = function (email_address, color) {
+    this.$element
+      .find('[value="' + email_address + '"]')
+      .closest('label').css('background-color', color)
   };
 
   function Row (coffee_order) {
