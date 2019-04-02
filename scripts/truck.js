@@ -8,21 +8,27 @@
   };
 
   Truck.prototype.createOrder = function (order) {
-    this.datastore.add(order.email_address, order);
+    return this.datastore.add(order.email_address, order);
   };
 
   Truck.prototype.deliverOrder = function (email) {
-    this.datastore.remove(email);
+    return this.datastore.remove(email);
   };
 
-  Truck.prototype.printOrders = function () {
-    var email_array = Object.keys(this.datastore.getAll());
+  Truck.prototype.printOrders = function (print_fn) {
+    return this.datastore.getAll().then(function (orders) {
+      var email_array = Object.keys(orders);
 
-    console.log('Truck #' + this.truck_id + ' has pending orders:');
-    email_array.forEach(function (email) {
-      console.log(this.datastore.get(email));
+      console.log('Truck #' + this.truck_id + ' has pending orders:');
+      email_array.forEach(function (email) {
+        console.log(orders[email]);
+        if (print_fn) {
+          print_fn(orders[email])
+        }
+      }.bind(this));
     }.bind(this));
-  }
+  };
+
 
   App.Truck = Truck;
   window.App = App;

@@ -23,9 +23,11 @@
         data[item.name] = item.value;
       });
 
-      fn(data);
-      this.reset();
-      this.elements[0].focus();
+      fn(data).then(function () {
+        this.reset();
+        this.elements[0].focus();
+      }.bind(this));
+
     });
   };
 

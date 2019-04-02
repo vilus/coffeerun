@@ -12,27 +12,31 @@
   };
 
   RemoteDataStore.prototype.add = function (key, val) {
-    $.post(this.server_url, val, function (server_response) {
+    return $.post(this.server_url, val, function (server_response) {
       console.log(server_response);
     });
   };
 
   RemoteDataStore.prototype.getAll = function (cb) {
-    $.get(this.server_url, function (server_response) {
-      console.log(server_response);
-      cb(server_response);
+    return $.get(this.server_url, function (server_response) {
+      if (cb) {
+        console.log(server_response);
+        cb(server_response);
+      }
     });
   };
 
   RemoteDataStore.prototype.get = function (key, cb) {
-    $.get(this.server_url + '/' + key, function (server_response) {
-      console.log(server_response);
-      cb(server_response);
+    return $.get(this.server_url + '/' + key, function (server_response) {
+      if (cb) {
+        console.log(server_response);
+        cb(server_response);
+      }
     });
   };
 
   RemoteDataStore.prototype.remove = function (key) {
-    $.ajax(this.server_url + '/' + key, {type: 'DELETE'});
+    return $.ajax(this.server_url + '/' + key, {type: 'DELETE'});
   };
 
   App.RemoteDataStore = RemoteDataStore;

@@ -24,8 +24,9 @@
       if (event.target.checked) {
         this.rowColor(email, 'Gainsboro') // todo
         var task_id = setTimeout(function () {
-          this.removeRow(email);
-          fn(email);
+          fn(email).then(function () {
+            this.removeRow(email);
+          }.bind(this));
         }.bind(this), remove_delay);
 
         this.unchecker_map[email] = function () {

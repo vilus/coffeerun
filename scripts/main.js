@@ -17,11 +17,18 @@
   var checklist = new CheckList(CHECKLIST_SELECTOR);
 
   form_handler.addSubmitHandler(function (data) {
-    my_truck.createOrder.call(my_truck, data);
-    checklist.addRow.call(checklist, data);
+    return my_truck.createOrder.call(my_truck, data)
+      .then(function () {
+        checklist.addRow.call(checklist, data);
+      },
+      function () {
+        alert('Server unreachable. Try again later.');
+      }
+    );
   });
   form_handler.addInputHandler(Validation.isCompanyEmail);
   checklist.addClickHandler(my_truck.deliverOrder.bind(my_truck));
+  my_truck.printOrders(checklist.addRow.bind(checklist));
 
   window.my_track = my_truck;
 })(window);
