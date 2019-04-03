@@ -12,7 +12,7 @@
   var CheckList = App.CheckList;
 
   var remote_ds = new RemoteDataStore(SERVER_URL);
-  var my_truck = new Truck('ncc-1701', remote_ds);
+  var my_truck = new Truck('ncc-1701', new DataStore());
   var form_handler = new FormHandler(FORM_SELECTOR);
   var checklist = new CheckList(CHECKLIST_SELECTOR);
 

@@ -23,7 +23,7 @@
       email_array.forEach(function (email) {
         console.log(orders[email]);
         if (print_fn) {
-          print_fn(orders[email])
+          print_fn(orders[email]);
         }
       }.bind(this));
     }.bind(this));
